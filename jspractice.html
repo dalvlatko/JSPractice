@@ -27,27 +27,30 @@
 
         function findTripsByUser(user){
           return trips.filter(trip => trip.user == user);
-        }
+        };
         function findDestinationsWithCity(city){
           let result = trips.map(e=> e.destinations.filter(e=>e.city==city));
-          return result.reduce((arr,e) => arr.concat(e))
-        }
+          return result.reduce((arr,e) => arr.concat(e));
+        };
         function findDestinationsWithStyle(style){
           let result = trips.map(e=> e.destinations.filter(e=>e.style==style));
-          return result.reduce((arr,e) => arr.concat(e))
-        }
-        function findAverages(arr){
-            let daysTotal = arr.reduce((acc, e) => acc+e.days,0);
-            let foodTotal = arr.reduce((acc, e) => acc+e.food,0);
-             let transportTotal = arr.reduce((acc, e) => acc+e.transport,0);
-             let housingTotal = arr.reduce((acc, e) => acc+e.housing,0);
-        
-            let daysAvg = (daysTotal/arr.length).toFixed(1);
-            let foodAvg = (foodTotal/daysTotal).toFixed(2);
-            let transportAvg = (transportTotal/daysTotal).toFixed(2);
-            let housingAvg = (housingTotal/daysTotal).toFixed(2);
-            return {destinationsTotal: arr.length, daysAvg: daysAvg, foodAvg: foodAvg, transportAvg: transportAvg, housingAvg: housingAvg};
+          return result.reduce((arr,e) => arr.concat(e));
         };
+        function findAverages(destinations){
+          let daysTotal = arr.reduce((acc, e) => acc+e.days,0);
+          let foodTotal = arr.reduce((acc, e) => acc+e.food,0);
+          let transportTotal = arr.reduce((acc, e) => acc+e.transport,0);
+          let housingTotal = arr.reduce((acc, e) => acc+e.housing,0);
+        
+          let daysAvg = (daysTotal/arr.length).toFixed(1);
+          let foodAvg = (foodTotal/daysTotal).toFixed(2);
+          let transportAvg = (transportTotal/daysTotal).toFixed(2);
+          let housingAvg = (housingTotal/daysTotal).toFixed(2);
+          return {destinationsTotal: arr.length, daysAvg: daysAvg, foodAvg: foodAvg, transportAvg: transportAvg, housingAvg: housingAvg};
+        };
+        function findTripsWithCity(city){
+
+        }
 
         let ohridTrips = findDestinationsWithCity("ohrid");
         console.table(ohridTrips);
