@@ -49,7 +49,13 @@
           return {destinationsTotal: arr.length, daysAvg: daysAvg, foodAvg: foodAvg, transportAvg: transportAvg, housingAvg: housingAvg};
         };
         function findTripsWithCity(city){
-          
+          let result = [];
+          trips.forEach(trip => {
+            if (trip.destinations.some(e => e.city == city)){
+              result.push(trip);
+            };
+          });
+          return result;
         }
 
         let ohridTrips = findDestinationsWithCity("ohrid");
@@ -57,6 +63,7 @@
         let LuxuryDestinations = findDestinationsWithStyle("luxury");
         console.table(LuxuryDestinations);
         console.table(findAverages(LuxuryDestinations));
+        console.table(findTripsWithCity("ohrid"));
     </script>
     </body>
     </html>
