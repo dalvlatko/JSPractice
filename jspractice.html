@@ -36,7 +36,7 @@
           let result = trips.map(e=> e.destinations.filter(e=>e.style==style));
           return result.reduce((arr,e) => arr.concat(e));
         };
-        function findAverages(destinations){
+        function findAverages(arr){
           let daysTotal = arr.reduce((acc, e) => acc+e.days,0);
           let foodTotal = arr.reduce((acc, e) => acc+e.food,0);
           let transportTotal = arr.reduce((acc, e) => acc+e.transport,0);
@@ -49,7 +49,7 @@
           return {destinationsTotal: arr.length, daysAvg: daysAvg, foodAvg: foodAvg, transportAvg: transportAvg, housingAvg: housingAvg};
         };
         function findTripsWithCity(city){
-
+          
         }
 
         let ohridTrips = findDestinationsWithCity("ohrid");
