@@ -12,7 +12,7 @@
           {city: "bitola", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
           {city: "skopje", style: "backpacking", days: 3, housing: 5, transport: 100, food: 40}]
         },
-        {user:"vlatko", trip_name:"colombia fun times", trip_id: 1, destinations:[
+        {user:"andrea", trip_name:"colombia fun times", trip_id: 1, destinations:[
           {city: "bogota", style: "luxury", days: 3, housing: 0, transport: 100, food: 40}, 
           {city: "ohrid", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
           {city: "cartagena", style: "backpacking", days: 3, housing: 5, transport: 100, food: 40}]
@@ -95,13 +95,6 @@
         });
         return result;
       }
-
-      console.table(findDestinationsWithCity("ohrid"));
-      let LuxuryDestinations = findDestinationsWithStyle("luxury");
-      console.table(LuxuryDestinations);
-      console.table(findAverages(LuxuryDestinations));
-      console.table(findTripsWithCity("ohrid"));
-      console.log(findTotals(findTripsByID('0')));
     </script>
   </body>
 </html>
