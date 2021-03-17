@@ -42,6 +42,25 @@
           });
         })
       };
+      function findDestinationsWithFancy(key, value) {
+        return trips.flatMap((e, i) => {
+          return e.destinations.filter(e => {
+          	if (isNaN(value)){
+            	if (e[key] == value){
+                e.user = trips[i].user;
+                e.trip_id = trips[i].trip_id;
+                return e;
+              } 
+            }else {
+              if (e[key] < value){
+                e.user = trips[i].user;
+                e.trip_id = trips[i].trip_id;
+                return e;
+              }
+            }
+          })
+        })
+      }
       function findDestinationsWithStyle(style){
         let result = trips.map(e=> e.destinations.filter(e=>e.style==style));
         return result.reduce((arr,e) => arr.concat(e));
