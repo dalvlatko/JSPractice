@@ -31,9 +31,15 @@
         let result = trips.filter(trip => trip.trip_id == trip_id);
         return result[0];
       };
-      function findDestinationsWithCity(city){
-        let result = trips.map(e=> e.destinations.filter(e=>e.city==city));
-        return result.reduce((arr,e) => arr.concat(e));
+      function findDestinationsWithCity(city) {
+        return trips.flatMap((e, i) => {
+          return e.destinations.filter(e => {
+            if (e.city == city){
+              e.user = trips[i].user;
+              return e;
+            }
+          });
+        })
       };
       function findDestinationsWithStyle(style){
         let result = trips.map(e=> e.destinations.filter(e=>e.style==style));
