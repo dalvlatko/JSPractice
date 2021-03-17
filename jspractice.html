@@ -31,11 +31,12 @@
         let result = trips.filter(trip => trip.trip_id == trip_id);
         return result[0];
       };
-      function findDestinationsWithCity(city) {
+      function findDestinationsWith(key, value) {
         return trips.flatMap((e, i) => {
           return e.destinations.filter(e => {
-            if (e.city == city){
+            if (e[key] == value){
               e.user = trips[i].user;
+              e.trip_id = trips[i].trip_id;
               return e;
             }
           });
