@@ -1,69 +1,81 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    </head>
-    <body>
-        <h1>JS practice lol</h1>
-        <div id="diplay"></div>
-
+  <head>
+  </head>
+  <body>
+    <h1>JS practice lol</h1>
+    <div id="diplay"></div>
     <script>
-        var trips = [
-          {user:"vlatko", trip_name:"my trip to mk", destinations:[
-            {city: "ohrid", style: "backpacking", days: 3, housing: 0, transport: 100, food: 40}, 
-            {city: "bitola", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
-            {city: "skopje", style: "backpacking", days: 3, housing: 5, transport: 100, food: 40}]
-          },
-          {user:"vlatko", trip_name:"colombia fun times", destinations:[
-            {city: "bogota", style: "luxury", days: 3, housing: 0, transport: 100, food: 40}, 
-            {city: "ohrid", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
-            {city: "cartagena", style: "backpacking", days: 3, housing: 5, transport: 100, food: 40}]
-          },
-          {user:"nick", trip_name:"my trip to cali", destinations:[
-            {city: "san diego", style: "backpacking", days: 3, housing: 0, transport: 100, food: 40}, 
-            {city: "los angeles", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
-            {city: "san francisco", style: "backpacking", days: 3, housing: 5, transport: 100, food: 40}]
-          }
-        ];
-
-        function findTripsByUser(user){
-          return trips.filter(trip => trip.user == user);
-        };
-        function findDestinationsWithCity(city){
-          let result = trips.map(e=> e.destinations.filter(e=>e.city==city));
-          return result.reduce((arr,e) => arr.concat(e));
-        };
-        function findDestinationsWithStyle(style){
-          let result = trips.map(e=> e.destinations.filter(e=>e.style==style));
-          return result.reduce((arr,e) => arr.concat(e));
-        };
-        function findAverages(arr){
-          let daysTotal = arr.reduce((acc, e) => acc+e.days,0);
-          let foodTotal = arr.reduce((acc, e) => acc+e.food,0);
-          let transportTotal = arr.reduce((acc, e) => acc+e.transport,0);
-          let housingTotal = arr.reduce((acc, e) => acc+e.housing,0);
-        
-          let daysAvg = (daysTotal/arr.length).toFixed(1);
-          let foodAvg = (foodTotal/daysTotal).toFixed(2);
-          let transportAvg = (transportTotal/daysTotal).toFixed(2);
-          let housingAvg = (housingTotal/daysTotal).toFixed(2);
-          return {destinationsTotal: arr.length, daysAvg: daysAvg, foodAvg: foodAvg, transportAvg: transportAvg, housingAvg: housingAvg};
-        };
-        function findTripsWithCity(city){
-          let result = [];
-          trips.forEach(trip => {
-            if (trip.destinations.some(e => e.city == city)){
-              result.push(trip);
-            };
-          });
-          return result;
+      var trips = [
+        {user:"vlatko", trip_name:"my trip to mk", trip_id: 0, destinations:[
+          {city: "ohrid", style: "backpacking", days: 3, housing: 0, transport: 100, food: 40}, 
+          {city: "bitola", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
+          {city: "skopje", style: "backpacking", days: 3, housing: 5, transport: 100, food: 40}]
+        },
+        {user:"vlatko", trip_name:"colombia fun times", trip_id: 1, destinations:[
+          {city: "bogota", style: "luxury", days: 3, housing: 0, transport: 100, food: 40}, 
+          {city: "ohrid", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
+          {city: "cartagena", style: "backpacking", days: 3, housing: 5, transport: 100, food: 40}]
+        },
+        {user:"nick", trip_name:"my trip to cali", trip_id: 2, destinations:[
+          {city: "san diego", style: "backpacking", days: 3, housing: 0, transport: 100, food: 40}, 
+          {city: "los angeles", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
+          {city: "san francisco", style: "backpacking", days: 3, housing: 5, transport: 100, food: 40}]
         }
+      ];
 
-        let ohridTrips = findDestinationsWithCity("ohrid");
-        console.table(ohridTrips);
-        let LuxuryDestinations = findDestinationsWithStyle("luxury");
-        console.table(LuxuryDestinations);
-        console.table(findAverages(LuxuryDestinations));
-        console.table(findTripsWithCity("ohrid"));
+      function findTripsByUser(user){
+        return trips.filter(trip => trip.user == user);
+      };
+      function findTripsByID(trip_id){
+        let result = trips.filter(trip => trip.trip_id == trip_id);
+        return result[0];
+      };
+      function findDestinationsWithCity(city){
+        let result = trips.map(e=> e.destinations.filter(e=>e.city==city));
+        return result.reduce((arr,e) => arr.concat(e));
+      };
+      function findDestinationsWithStyle(style){
+        let result = trips.map(e=> e.destinations.filter(e=>e.style==style));
+        return result.reduce((arr,e) => arr.concat(e));
+      };
+      function findAverages(arr){
+        let daysTotal = arr.reduce((acc, e) => acc+e.days,0);
+        let foodTotal = arr.reduce((acc, e) => acc+e.food,0);
+        let transportTotal = arr.reduce((acc, e) => acc+e.transport,0);
+        let housingTotal = arr.reduce((acc, e) => acc+e.housing,0);
+      
+        let daysAvg = (daysTotal/arr.length).toFixed(1);
+        let foodAvg = (foodTotal/daysTotal).toFixed(2);
+        let transportAvg = (transportTotal/daysTotal).toFixed(2);
+        let housingAvg = (housingTotal/daysTotal).toFixed(2);
+        return {destinationsTotal: arr.length, daysAvg: daysAvg, foodAvg: foodAvg, transportAvg: transportAvg, housingAvg: housingAvg};
+      };
+      function findTotals(arr){
+        let tripDestinations = arr.destinations;
+        let daysTotal = tripDestinations.reduce((acc, e) => acc+e.days,0);
+        let foodTotal = tripDestinations.reduce((acc, e) => acc+e.food,0);
+        let transportTotal = tripDestinations.reduce((acc, e) => acc+e.transport,0);
+        let housingTotal = tripDestinations.reduce((acc, e) => acc+e.housing,0);
+        let totalTotal = daysTotal + foodTotal + transportTotal + housingTotal;
+        return {daysTotal: daysTotal, foodTotal: foodTotal, transportTotal: transportTotal, housingTotal: housingTotal, totalTotal: totalTotal};
+      }
+      function findTripsWithCity(city){
+        let result = [];
+        trips.forEach(trip => {
+          if (trip.destinations.some(e => e.city == city)){
+            result.push(trip);
+          };
+        });
+        return result;
+      }
+
+      console.table(findDestinationsWithCity("ohrid"));
+      let LuxuryDestinations = findDestinationsWithStyle("luxury");
+      console.table(LuxuryDestinations);
+      console.table(findAverages(LuxuryDestinations));
+      console.table(findTripsWithCity("ohrid"));
+      console.log(findTotals(findTripsByID('0')));
     </script>
-    </body>
-    </html>
+  </body>
+</html>
