@@ -26,11 +26,11 @@
 
       function findTripsByUser(user){
         return trips.filter(trip => trip.user == user);
-      };
+      }
       function findTripsByID(trip_id){
         let result = trips.filter(trip => trip.trip_id == trip_id);
         return result[0];
-      };
+      }
       function findDestinationsWith(key, value) {
         return trips.flatMap((e, i) => {
           return e.destinations.filter(e => {
@@ -39,9 +39,9 @@
               e.trip_id = trips[i].trip_id;
               return e;
             }
-          });
+          })
         })
-      };
+      }
       function findDestinationsWithFancy(key, value) {
         return trips.flatMap((e, i) => {
           return e.destinations.filter(e => {
@@ -64,7 +64,7 @@
       function findDestinationsWithStyle(style){
         let result = trips.map(e=> e.destinations.filter(e=>e.style==style));
         return result.reduce((arr,e) => arr.concat(e));
-      };
+      }
       function findAverages(arr){
         let daysTotal = arr.reduce((acc, e) => acc+e.days,0);
         let foodTotal = arr.reduce((acc, e) => acc+e.food,0);
@@ -76,7 +76,7 @@
         let transportAvg = (transportTotal/daysTotal).toFixed(2);
         let housingAvg = (housingTotal/daysTotal).toFixed(2);
         return {destinationsTotal: arr.length, daysAvg: daysAvg, foodAvg: foodAvg, transportAvg: transportAvg, housingAvg: housingAvg};
-      };
+      }
       function findTotals(arr){
         let tripDestinations = arr.destinations;
         let daysTotal = tripDestinations.reduce((acc, e) => acc+e.days,0);
@@ -96,7 +96,7 @@
         return result;
       }
       function generateDestinationsTable(div, data) {
-        let tableDiv = document.getElementById(div);
+        let tableDiv = document.querySelector(div);
         let table = document.createElement('table')
         let thead = table.createTHead();
         let row = thead.insertRow();
