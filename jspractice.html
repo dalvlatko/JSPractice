@@ -95,6 +95,29 @@
         });
         return result;
       }
+      function generateDestinationsTable(div, data) {
+        let tableDiv = document.getElementById(div);
+        let table = document.createElement('table')
+        let thead = table.createTHead();
+        let row = thead.insertRow();
+        for (let key of Object.keys(data[0])) {
+          let th = document.createElement("th");
+          let text = document.createTextNode(key);
+          th.appendChild(text);
+          row.appendChild(th);
+        }
+        let tbody = table.createTBody();
+        data.forEach(trip => {
+          let row = tbody.insertRow();
+          for (let value of Object.values(trip)) {
+            let td = document.createElement("td");
+            let text = document.createTextNode(value);
+            td.appendChild(text);
+            row.appendChild(td);
+          }
+        });
+        tableDiv.appendChild(table)
+      }
     </script>
   </body>
 </html>
