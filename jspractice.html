@@ -14,13 +14,18 @@
         },
         {user:"andrea", trip_name:"colombia fun times", trip_id: 1, destinations:[
           {city: "bogota", style: "luxury", days: 3, housing: 0, transport: 100, food: 40}, 
-          {city: "ohrid", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
+          {city: "medellin", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
           {city: "cartagena", style: "backpacking", days: 3, housing: 5, transport: 100, food: 40}]
         },
-        {user:"nick", trip_name:"my trip to cali", trip_id: 2, destinations:[
-          {city: "san diego", style: "backpacking", days: 3, housing: 0, transport: 100, food: 40}, 
+        {user:"vlatko", trip_name:"colombia fun times", trip_id: 2, destinations:[
+          {city: "santa marta", style: "luxury", days: 4, housing: 200, transport: 100, food: 40}, 
+          {city: "cartagena", style: "luxury", days: 4, housing: 150, transport: 180, food: 90}, 
+          {city: "medellin", style: "luxury", days: 5, housing: 500, transport: 100, food: 40}]
+        },
+        {user:"nick", trip_name:"my trip to cali", trip_id: 3, destinations:[
+          {city: "san diego", style: "backpacking", days: 3, housing: 411, transport: 100, food: 40}, 
           {city: "los angeles", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
-          {city: "san francisco", style: "backpacking", days: 3, housing: 5, transport: 100, food: 40}]
+          {city: "san francisco", style: "backpacking", days: 3, housing: 205, transport: 100, food: 40}]
         }
       ];
 
@@ -28,8 +33,7 @@
         return trips.filter(trip => trip.user == user);
       }
       function findTripsByID(trip_id){
-        let result = trips.filter(trip => trip.trip_id == trip_id);
-        return result[0];
+        return trips.filter(trip => trip.trip_id == trip_id);
       }
       function findDestinationsWith(key, value) {
         return trips.flatMap((e, i) => {
@@ -97,7 +101,7 @@
       }
       function generateDestinationsTable(div, data) {
         let tableDiv = document.querySelector(div);
-        let table = document.createElement('table')
+        let table = document.createElement('table');
         let thead = table.createTHead();
         let row = thead.insertRow();
         for (let key of Object.keys(data[0])) {
@@ -117,6 +121,50 @@
           }
         });
         tableDiv.appendChild(table)
+      }
+      function generateReports(div, data){
+        //Remove any reports on page
+        document.querySelectorAll(".report").forEach(e => e.remove());
+        let tripsDiv = document.querySelector(div);
+        data.forEach(trip => {
+          //Create a div for each trip and give it class "report"
+          let reportDiv = document.createElement('div');
+          reportDiv.id = `trip-${trip.trip_id}`;
+          reportDiv.className = "report";
+          //Create a title with trip name and user
+          let tripName = document.createElement('h1');
+          let name = document.createTextNode(trip.trip_name);
+          tripName.appendChild(name);
+          reportDiv.appendChild(tripName);
+          let tripUser = document.createElement('p');
+          let user = document.createTextNode(`By ${trip.user}`);
+          tripUser.appendChild(user);
+          reportDiv.appendChild(tripUser);
+          //Generate a tablehead using keys of first destination
+          let table = document.createElement('table');
+          let thead = table.createTHead();
+          let row = thead.insertRow();
+          for (let key of Object.keys(trip.destinations[0])) {
+            let th = document.createElement("th");
+            let text = document.createTextNode(key);
+            th.appendChild(text);
+            row.appendChild(th);
+          }
+          //Generate tablebody
+          let tbody = table.createTBody();
+          trip.destinations.forEach(e => {
+            let row = tbody.insertRow();
+            for (let value of Object.values(e)) {
+              let td = document.createElement("td");
+              let text = document.createTextNode(value);
+              td.appendChild(text);
+              row.appendChild(td);
+            }
+          })
+          //Add Table to reportDiv, and reportDiv to tripsDiv
+          reportDiv.appendChild(table);;
+          tripsDiv.appendChild(reportDiv)
+        });
       }
     </script>
   </body>
