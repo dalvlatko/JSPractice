@@ -17,7 +17,21 @@
       }
   </style>
     <h1>JS practice lol</h1>
-    <div id="diplay"></div>
+    <div>
+      <h3>Search for trips/destinations with:</h3>
+      <input type="radio" id="user" name="search" value="user">
+      <label for="user">User</label>
+      <input type="radio" id="id" name="search" value="id">
+      <label for="id">ID</label>
+      <input type="radio" id="city" name="search" value="city">
+      <label for="city">City</label>
+      <input type="radio" id="style" name="search" value="style">
+      <label for="style">Style</label>
+      <br><br>
+      <form>
+        <input type="text" id="value"><input type="button" value="Find">
+      </form>
+    </div>
     <script>
       var trips = [
         {user:"vlatko", trip_name:"my trip to mk", trip_id: 0, destinations:[
