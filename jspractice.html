@@ -29,7 +29,8 @@
       <label for="style">Style</label>
       <br><br>
       <form>
-        <input type="text" id="value"><input type="button" value="Find">
+        <input type="text" id="searchField">
+        <input type="button" value="Find" onclick="searchButton()">
       </form>
     </div>
     <script>
@@ -228,6 +229,10 @@
           }
           tripsDiv.appendChild(reportDiv);
         });
+      }
+      function searchButton () {
+        let searchValue = document.querySelector("#searchField").value;
+        generateReports("body", findTripsByUser(searchValue));
       }
     </script>
   </body>
