@@ -27,13 +27,15 @@
         },
         {user:"andrea", trip_name:"colombia fun times", trip_id: 1, destinations:[
           {city: "bogota", style: "luxury", days: 3, housing: 0, transport: 100, food: 40}, 
-          {city: "medellin", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
+          {city: "ibague", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
           {city: "cartagena", style: "backpacking", days: 3, housing: 5, transport: 100, food: 40}]
         },
         {user:"vlatko", trip_name:"colombia fun times", trip_id: 2, destinations:[
-          {city: "santa marta", style: "luxury", days: 4, housing: 200, transport: 100, food: 40}, 
-          {city: "cartagena", style: "luxury", days: 4, housing: 150, transport: 180, food: 90}, 
-          {city: "medellin", style: "luxury", days: 5, housing: 500, transport: 100, food: 40}]
+          {city: "bogota", style: "luxury", days: 2, housing: 200, transport: 100, food: 100}, 
+          {city: "ibague", style: "luxury", days: 2, housing: 150, transport: 180, food: 90}, 
+          {city: "medellin", style: "backpacking", days: 5, housing: 170, transport: 50, food: 77}, 
+          {city: "santa marta", style: "backpacking", days: 4, housing: 150, transport: 180, food: 90}, 
+          {city: "cartagena", style: "luxury", days: 5, housing: 500, transport: 100, food: 40}]
         },
         {user:"nick", trip_name:"my trip to cali", trip_id: 3, destinations:[
           {city: "san diego", style: "backpacking", days: 3, housing: 411, transport: 100, food: 40}, 
@@ -101,7 +103,7 @@
         let transportTotal = tripDestinations.reduce((acc, e) => acc+e.transport,0);
         let housingTotal = tripDestinations.reduce((acc, e) => acc+e.housing,0);
         let totalTotal = foodTotal + transportTotal + housingTotal;
-        return {daysTotal: daysTotal, housingTotal: housingTotal, transportTotal: transportTotal, foodTotal: foodTotal, totalTotal: totalTotal};
+        return {daysTotal: daysTotal, housingTotal: `$${housingTotal}`, transportTotal: `$${transportTotal}`, foodTotal: `$${foodTotal}`, totalTotal: `$${totalTotal}`};
       }
       function findTripsWithCity(city){
         let result = [];
@@ -178,7 +180,7 @@
           let tbody = table.createTBody();
           trip.destinations.forEach(e => {
             let destTotal = e.housing + e.transport + e.food;
-            let destArr = [e.city, e.days, e.housing, e.transport, e.food, destTotal];
+            let destArr = [e.city, e.days, `$${e.housing}`, `$${e.transport}`, `$${e.food}`, `$${destTotal}`];
             let row = tbody.insertRow();
             destArr.forEach(e => {
               let td = document.createElement("td");
