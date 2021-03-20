@@ -30,7 +30,7 @@
           {city: "ibague", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
           {city: "cartagena", style: "backpacking", days: 3, housing: 5, transport: 100, food: 40}]
         },
-        {user:"vlatko", trip_name:"colombia fun times", trip_id: 2, destinations:[
+        {user:"vlatko", trip_name:"colombia fun times", trip_id: 2, comment: "wow this trip was so much fun", destinations:[
           {city: "bogota", style: "luxury", days: 2, housing: 200, transport: 100, food: 100}, 
           {city: "ibague", style: "luxury", days: 2, housing: 150, transport: 180, food: 90}, 
           {city: "medellin", style: "backpacking", days: 5, housing: 170, transport: 50, food: 77}, 
@@ -204,8 +204,15 @@
             rowTotals.appendChild(td);
           }
           //Add Table to reportDiv, and reportDiv to tripsDiv
-          reportDiv.appendChild(table);;
-          tripsDiv.appendChild(reportDiv)
+          reportDiv.appendChild(table);
+          //Add comments to bottom of report
+          if (trip.comment){
+            let comment = document.createElement("p");
+            let commentText = document.createTextNode(`${trip.user} wrote about their trip: "${trip.comment}"`);
+            comment.appendChild(commentText);
+            reportDiv.appendChild(comment);
+          }
+          tripsDiv.appendChild(reportDiv);
         });
       }
     </script>
