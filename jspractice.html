@@ -6,10 +6,10 @@
     <style>
       .report table{
           border-collapse: collapse;
-          border-left: solid lightgrey;
+          border: solid lightgrey;
       }
       .report td {
-          padding: 1em;
+          padding: 1em 2em;
           text-align: left;
       }
       .rowTotals {
@@ -100,8 +100,8 @@
         let foodTotal = tripDestinations.reduce((acc, e) => acc+e.food,0);
         let transportTotal = tripDestinations.reduce((acc, e) => acc+e.transport,0);
         let housingTotal = tripDestinations.reduce((acc, e) => acc+e.housing,0);
-        let totalTotal = daysTotal + foodTotal + transportTotal + housingTotal;
-        return {daysTotal: daysTotal, foodTotal: foodTotal, transportTotal: transportTotal, housingTotal: housingTotal, totalTotal: totalTotal};
+        let totalTotal = foodTotal + transportTotal + housingTotal;
+        return {daysTotal: daysTotal, housingTotal: housingTotal, transportTotal: transportTotal, foodTotal: foodTotal, totalTotal: totalTotal};
       }
       function findTripsWithCity(city){
         let result = [];
@@ -163,27 +163,30 @@
           let user = document.createTextNode(`By ${trip.user}`);
           tripUser.appendChild(user);
           reportDiv.appendChild(tripUser);
-          //Generate a tablehead using keys of first destination
+          //Generate a tablehead using custom array
           let table = document.createElement('table');
           let thead = table.createTHead();
           let row = thead.insertRow();
-          for (let key of Object.keys(trip.destinations[0])) {
+          let headArr = ["City", "Days", "Housing", "Transport", "Food", "Total"];
+          headArr.forEach(e => {
             let th = document.createElement("th");
-            let text = document.createTextNode(key);
+            let text = document.createTextNode(e);
             th.appendChild(text);
             row.appendChild(th);
-          }
+          });
           //Generate a row for each Destination in tablebody
           let tbody = table.createTBody();
           trip.destinations.forEach(e => {
+            let destTotal = e.housing + e.transport + e.food;
+            let destArr = [e.city, e.days, e.housing, e.transport, e.food, destTotal];
             let row = tbody.insertRow();
-            for (let value of Object.values(e)) {
+            destArr.forEach(e => {
               let td = document.createElement("td");
-              let text = document.createTextNode(value);
+              let text = document.createTextNode(e);
               td.appendChild(text);
               row.appendChild(td);
-            }
-          })
+            });
+          });
           //Create a row with totals for each column
           let tripTotals = findTotals(trip);
           let rowTotals = tbody.insertRow();
@@ -192,10 +195,6 @@
           let text = document.createTextNode("Totals");
           td.appendChild(text);
           rowTotals.appendChild(td);
-          let td2 = document.createElement("td"); //blank space for style
-          let text2 = document.createTextNode("--");
-          td2.appendChild(text2);
-          rowTotals.appendChild(td2);
           for (let value of Object.values(tripTotals)) {
             let td = document.createElement("td");
             let text = document.createTextNode(value);
