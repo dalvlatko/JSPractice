@@ -3,6 +3,19 @@
   <head>
   </head>
   <body>
+    <style>
+      .report table{
+          border-collapse: collapse;
+          border-left: solid lightgrey;
+      }
+      .report td {
+          padding: 1em;
+          text-align: left;
+      }
+      .rowTotals {
+          background: lightgrey;
+      }
+  </style>
     <h1>JS practice lol</h1>
     <div id="diplay"></div>
     <script>
@@ -126,6 +139,16 @@
         //Remove any reports on page
         document.querySelectorAll(".report").forEach(e => e.remove());
         let tripsDiv = document.querySelector(div);
+        //Check and inform if there are no results
+        if (data.length == 0) {
+          let reportDiv = document.createElement('div');
+          reportDiv.className = "report";
+          let noResults = document.createElement('h1');
+          let text = document.createTextNode("No results :(");
+          noResults.appendChild(text);
+          reportDiv.appendChild(noResults);
+          tripsDiv.appendChild(reportDiv)
+        }
         data.forEach(trip => {
           //Create a div for each trip and give it class "report"
           let reportDiv = document.createElement('div');
@@ -150,7 +173,7 @@
             th.appendChild(text);
             row.appendChild(th);
           }
-          //Generate tablebody
+          //Generate a row for each Destination in tablebody
           let tbody = table.createTBody();
           trip.destinations.forEach(e => {
             let row = tbody.insertRow();
@@ -161,6 +184,24 @@
               row.appendChild(td);
             }
           })
+          //Create a row with totals for each column
+          let tripTotals = findTotals(trip);
+          let rowTotals = tbody.insertRow();
+          rowTotals.className = "rowTotals";
+          let td = document.createElement("td");
+          let text = document.createTextNode("Totals");
+          td.appendChild(text);
+          rowTotals.appendChild(td);
+          let td2 = document.createElement("td"); //blank space for style
+          let text2 = document.createTextNode("--");
+          td2.appendChild(text2);
+          rowTotals.appendChild(td2);
+          for (let value of Object.values(tripTotals)) {
+            let td = document.createElement("td");
+            let text = document.createTextNode(value);
+            td.appendChild(text);
+            rowTotals.appendChild(td);
+          }
           //Add Table to reportDiv, and reportDiv to tripsDiv
           reportDiv.appendChild(table);;
           tripsDiv.appendChild(reportDiv)
