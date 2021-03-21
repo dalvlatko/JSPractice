@@ -4,6 +4,10 @@
   </head>
   <body>
     <style>
+      body {
+        width: 50%;
+        margin: 0 auto;
+      }
       .report table{
           border-collapse: collapse;
           border: solid lightgrey;
@@ -29,7 +33,7 @@
       <label for="style">Style</label>
       <br><br>
       <form id="searchBox" onsubmit="return false">
-        <input type="text" id="searchField">
+        <input type="text" id="searchField" autofocus>
         <input type="button" value="Find" onclick="searchButton()">
       </form>
     </div>
@@ -40,7 +44,7 @@
           {city: "bitola", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
           {city: "skopje", style: "backpacking", days: 3, housing: 5, transport: 100, food: 40}]
         },
-        {user:"andrea", trip_name:"colombia fun times", trip_id: 1, destinations:[
+        {user:"zoran", trip_name:"colombia fun times", trip_id: 1, comment: "so affordable, so much fun", destinations:[
           {city: "bogota", style: "luxury", days: 3, housing: 0, transport: 100, food: 40}, 
           {city: "ibague", style: "luxury", days: 7, housing: 150, transport: 180, food: 90}, 
           {city: "cartagena", style: "backpacking", days: 3, housing: 5, transport: 100, food: 40}]
