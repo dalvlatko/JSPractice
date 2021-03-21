@@ -135,26 +135,35 @@
         let tableDiv = document.querySelector(div);
         let reportDiv = document.createElement('div');
         reportDiv.className = "report";
-        let table = document.createElement('table');
-        let thead = table.createTHead();
-        let row = thead.insertRow();
-        for (let key of Object.keys(data[0])) {
-          let th = document.createElement("th");
-          let text = document.createTextNode(key);
-          th.appendChild(text);
-          row.appendChild(th);
-        }
-        let tbody = table.createTBody();
-        data.forEach(trip => {
-          let row = tbody.insertRow();
-          for (let value of Object.values(trip)) {
-            let td = document.createElement("td");
-            let text = document.createTextNode(value);
-            td.appendChild(text);
-            row.appendChild(td);
+        //Check and inform if there are no results
+        if (data.length == 0) {
+          let noResults = document.createElement('h1');
+          let text = document.createTextNode("No results :(");
+          noResults.appendChild(text);
+          reportDiv.appendChild(noResults);
+        } else {
+          let table = document.createElement('table');
+          let thead = table.createTHead();
+          let row = thead.insertRow();
+          for (let key of Object.keys(data[0])) {
+            let th = document.createElement("th");
+            let text = document.createTextNode(key);
+            th.appendChild(text);
+            row.appendChild(th);
           }
-        });
-        reportDiv.appendChild(table);
+          let tbody = table.createTBody();
+          data.forEach(trip => {
+            let row = tbody.insertRow();
+            for (let value of Object.values(trip)) {
+              let td = document.createElement("td");
+              let text = document.createTextNode(value);
+              td.appendChild(text);
+              row.appendChild(td);
+            }
+          });
+          reportDiv.appendChild(table);
+        }
+        
         tableDiv.appendChild(reportDiv);
       }
       function generateReports(div, data){
